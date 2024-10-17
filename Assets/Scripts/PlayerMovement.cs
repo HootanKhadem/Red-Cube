@@ -53,6 +53,11 @@ public class PlayerMovement : MonoBehaviour
         AddConstantForwardForce();
         AddRightForce();
         AddLeftForce();
+        if (rb.position.y < -1)
+        {
+            FindObjectsByType<GameManager>(FindObjectsSortMode.None)[0].EndGame();
+
+        }
     }
 
     private void AddLeftForce()
