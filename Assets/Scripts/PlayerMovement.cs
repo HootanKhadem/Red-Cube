@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
@@ -6,6 +7,8 @@ public class PlayerMovement : MonoBehaviour
     public Rigidbody rb;
     public float moveSpeed;
     public float moveSidewaysForce;
+    private bool _moveRight;
+    private bool _moveLeft = false;
     
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -13,17 +16,63 @@ public class PlayerMovement : MonoBehaviour
     {
     }
 
+    private void Update()
+    {
+        RightMovement();
+        LeftMovement();
+    }
+
+    private void RightMovement()
+    {
+        if (Input.GetKeyDown("d"))
+        {
+            _moveRight = true;
+        }
+
+        if (Input.GetKeyUp("d"))
+        {
+            _moveRight = false;
+        }
+    }
+    private void LeftMovement()
+    {
+        if (Input.GetKeyDown("a"))
+        {
+            _moveLeft = true;
+        }
+
+        if (Input.GetKeyUp("a"))
+        {
+            _moveLeft = false;
+        }
+    }
+
     // Update is called once per frame
     private void FixedUpdate()
     {
-        rb.AddForce(0, 0, moveSpeed * Time.deltaTime);
-        if (Input.GetKey("d"))
-        {
-            rb.AddForce(moveSidewaysForce * Time.deltaTime, 0, 0);
-        }
-        if (Input.GetKey("a"))
+        AddConstantForwardForce();
+        AddRightForce();
+        AddLeftForce();
+    }
+
+    private void AddLeftForce()
+    {
+        if (_moveLeft)
         {
             rb.AddForce(-moveSidewaysForce * Time.deltaTime, 0, 0);
         }
+    }
+
+    private void AddRightForce()
+    {
+        if (_moveRight)
+        {
+            rb.AddForce(moveSidewaysForce * Time.deltaTime, 0, 0);
+        }
+    }
+
+    private void AddConstantForwardForce()
+    {
+        rb.AddForce(0, 0, moveSpeed * Time.deltaTime);
     }
 }
