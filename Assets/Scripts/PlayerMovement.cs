@@ -59,7 +59,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (_moveLeft)
         {
-            rb.AddForce(-moveSidewaysForce * Time.deltaTime, 0, 0);
+            rb.AddForce(-moveSidewaysForce * Time.deltaTime, 0, 0, ForceMode.VelocityChange);
         }
     }
 
@@ -67,7 +67,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (_moveRight)
         {
-            rb.AddForce(moveSidewaysForce * Time.deltaTime, 0, 0);
+            rb.AddForce(moveSidewaysForce * Time.deltaTime, 0, 0, ForceMode.VelocityChange);
         }
     }
 
